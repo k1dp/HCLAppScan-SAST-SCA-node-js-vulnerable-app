@@ -7,7 +7,7 @@ pipeline {
         APPSCAN_APP_ID     = credentials('appscan-app-id')
         APPSCAN_SERVER_URL = credentials('appscan-server-url')
         // Path where SAClientUtil is installed on Jenkins machine
-        APPSCAN_CLIENT     = 'C:\\Users\\appscanadmin\\Downloads\\SAClientUtil_8.0.1646_Win\\SAClientUtil.8.0.1646\\bin\\appscan.bat'
+        APPSCAN_CLIENT     = 'C:\\appscan\\SAClientUtil.8.0.1646\\bin\\appscan.bat'
     }
 
     stages {
@@ -29,7 +29,7 @@ pipeline {
         stage('AppScan Login') {
             steps {
                 bat """
-                    ${APPSCAN_CLIENT} api_login ^
+                    "%APPSCAN_CLIENT%" api_login ^
                         -u %APPSCAN_KEY_ID% ^
                         -P %APPSCAN_KEY_SECRET% ^
                         -s %APPSCAN_SERVER_URL%
@@ -40,8 +40,8 @@ pipeline {
         stage('SAST Scan') {
             steps {
                 bat """
-                    ${APPSCAN_CLIENT} prepare
-                    ${APPSCAN_CLIENT} queue_analysis ^
+                    "%APPSCAN_CLIENT%" prepare
+                    "%APPSCAN_CLIENT%" queue_analysis ^
                         -a %APPSCAN_APP_ID% ^
                         -t sast ^
                         -n "SAST-${BUILD_NUMBER}" ^
@@ -56,7 +56,7 @@ pipeline {
         stage('SCA Scan') {
             steps {
                 bat """
-                    ${APPSCAN_CLIENT} queue_analysis ^
+                    "%APPSCAN_CLIENT%" queue_analysis ^
                         -a %APPSCAN_APP_ID% ^
                         -t sca ^
                         -n "SCA-${BUILD_NUMBER}" ^
