@@ -91,10 +91,8 @@ pipeline {
 
     post {
         always {
-            node {
-                echo "Pipeline finished — build #${BUILD_NUMBER}"
-                archiveArtifacts artifacts: '*.json', allowEmptyArchive: true
-            }
+            echo "Pipeline finished — build #${BUILD_NUMBER}"
+            archiveArtifacts artifacts: '*.json', allowEmptyArchive: true
         }
         failure {
             echo "Build FAILED — check AppScan results"
