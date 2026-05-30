@@ -41,7 +41,7 @@ pipeline {
         stage('SAST Scan') {
             steps {
                 bat """
-                    "%APPSCAN_CLIENT%" prepare
+                    "%APPSCAN_CLIENT%" prepare -acceptssl
                     "%APPSCAN_CLIENT%" queue_analysis ^
                         -a %APPSCAN_APP_ID% ^
                         -t sast ^
