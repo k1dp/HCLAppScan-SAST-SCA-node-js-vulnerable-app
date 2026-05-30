@@ -32,7 +32,7 @@ pipeline {
                     "%APPSCAN_CLIENT%" api_login ^
                         -u %APPSCAN_KEY_ID% ^
                         -P %APPSCAN_KEY_SECRET% ^
-                        -s %APPSCAN_SERVER_URL%
+                        -persist ^
                         -acceptssl ^
                 """
             }
@@ -51,7 +51,7 @@ pipeline {
                         -ot json ^
                         -o sast-results.json
                 """
-                archiveArtifacts artifacts: 'sast-results.json'
+                archiveArtifacts artifacts: 'sast-results.json', allowEmptyArchive: true
             }
         }
 
@@ -67,7 +67,7 @@ pipeline {
                         -ot json ^
                         -o sca-results.json
                 """
-                archiveArtifacts artifacts: 'sca-results.json'
+                archiveArtifacts artifacts: 'sca-results.json', allowEmptyArchive: true
             }
         }
 
