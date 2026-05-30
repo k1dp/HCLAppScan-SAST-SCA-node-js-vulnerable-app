@@ -33,7 +33,7 @@ pipeline {
                         -u %APPSCAN_KEY_ID% ^
                         -P %APPSCAN_KEY_SECRET% ^
                         -s %APPSCAN_SERVER_URL%
-                        -acceptssl
+                        -acceptssl ^
                 """
             }
         }
