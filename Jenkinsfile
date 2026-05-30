@@ -53,6 +53,7 @@ pipeline {
         stage('SCA Scan') {
             steps {
                 bat """
+                    "%APPSCAN_CLIENT%" prepare_sca -acceptssl
                     "%APPSCAN_CLIENT%" queue_analysis ^
                         -a %APPSCAN_APP_ID% ^
                         -n "SCA-%BUILD_NUMBER%" ^
