@@ -91,15 +91,13 @@ pipeline {
 
     post {
         always {
-            echo "Pipeline finished — build #${BUILD_NUMBER}"
-            archiveArtifacts artifacts: '*.json', allowEmptyArchive: true
+            node {
+                echo "Pipeline finished — build #${BUILD_NUMBER}"
+                archiveArtifacts artifacts: '*.json', allowEmptyArchive: true
+            }
         }
         failure {
             echo "Build FAILED — check AppScan results"
-            // Add email notification if mail plugin is configured
-            // mail to: 'security@yourcompany.com',
-            //      subject: "AppScan FAILED - Build #${BUILD_NUMBER}",
-            //      body: "Check results at ${BUILD_URL}"
         }
         success {
             echo "Build PASSED — no critical security issues found"
