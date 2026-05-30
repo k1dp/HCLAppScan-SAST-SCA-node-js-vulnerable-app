@@ -33,6 +33,7 @@ pipeline {
                         -u %APPSCAN_KEY_ID% ^
                         -P %APPSCAN_KEY_SECRET% ^
                         -s %APPSCAN_SERVER_URL%
+                        -acceptssl
                 """
             }
         }
@@ -46,6 +47,7 @@ pipeline {
                         -t sast ^
                         -n "SAST-${BUILD_NUMBER}" ^
                         -s %APPSCAN_SERVER_URL% ^
+                        -acceptssl ^
                         -ot json ^
                         -o sast-results.json
                 """
@@ -61,6 +63,7 @@ pipeline {
                         -t sca ^
                         -n "SCA-${BUILD_NUMBER}" ^
                         -s %APPSCAN_SERVER_URL% ^
+                        -acceptssl ^
                         -ot json ^
                         -o sca-results.json
                 """
