@@ -39,30 +39,17 @@ pipeline {
 
         stage('SAST Scan') {
             steps {
-                bat """
-                    "%APPSCAN_CLIENT%" prepare -acceptssl
-                    "%APPSCAN_CLIENT%" queue_analysis ^
-                        -a %APPSCAN_APP_ID% ^
-                        -n "SAST-%BUILD_NUMBER%" ^
-                        -sao ^
-                        -acceptssl
-                """
+                bat '"%APPSCAN_CLIENT%" prepare -acceptssl'
+                bat '"%APPSCAN_CLIENT%" queue_analysis -a %APPSCAN_APP_ID% -n "SAST-%BUILD_NUMBER%" -sao -acceptssl'
             }
         }
 
         stage('SCA Scan') {
             steps {
-                bat """
-                    "%APPSCAN_CLIENT%" prepare_sca -acceptssl
-                    "%APPSCAN_CLIENT%" queue_analysis ^
-                        -a %APPSCAN_APP_ID% ^
-                        -n "SCA-%BUILD_NUMBER%" ^
-                        -oso ^
-                        -acceptssl
-                """
+                bat '"%APPSCAN_CLIENT%" prepare_sca -acceptssl'
+                bat '"%APPSCAN_CLIENT%" queue_analysis -a %APPSCAN_APP_ID% -n "SCA-%BUILD_NUMBER%" -oso -acceptssl'
             }
         }
-
         stage('Security Gate') {
             steps {
                 script {
