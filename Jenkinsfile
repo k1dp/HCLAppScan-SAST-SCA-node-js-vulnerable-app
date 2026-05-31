@@ -33,6 +33,7 @@ pipeline {
 
         stage('SAST Scan') {
             steps {
+                bat 'del /f /q *.irx 2>nul & echo cleaned old IRX' //This will delete existing irx and create new for SAST.
                 bat '"%APPSCAN_CLIENT%" prepare -acceptssl'
                 bat '"%APPSCAN_CLIENT%" queue_analysis -a %APPSCAN_APP_ID% -n "SAST-%BUILD_NUMBER%" -sao -acceptssl'
             }
@@ -40,6 +41,7 @@ pipeline {
 
         stage('SCA Scan') {
             steps {
+                bat 'del /f /q *.irx 2>nul & echo cleaned old IRX' //This will delete existing irx and create new for SCA.
                 bat '"%APPSCAN_CLIENT%" prepare_sca -acceptssl'
                 bat '"%APPSCAN_CLIENT%" queue_analysis -a %APPSCAN_APP_ID% -n "SCA-%BUILD_NUMBER%" -oso -acceptssl'
             }
