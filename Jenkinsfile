@@ -27,13 +27,7 @@ pipeline {
 
         stage('AppScan Login') {
             steps {
-                bat """
-                    "%APPSCAN_CLIENT%" api_login ^
-                        -u %APPSCAN_KEY_ID% ^
-                        -P %APPSCAN_KEY_SECRET% ^
-                        -service_url %APPSCAN_SERVER_URL% ^
-                        -acceptssl
-                """
+                bat '"%APPSCAN_CLIENT%" api_login -u %APPSCAN_KEY_ID% -P %APPSCAN_KEY_SECRET% -service_url %APPSCAN_SERVER_URL% -acceptssl'
             }
         }
 
